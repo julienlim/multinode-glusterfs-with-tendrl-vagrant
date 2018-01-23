@@ -3,7 +3,7 @@ Multinode Glusterfs with All-in-1 Tendrl for Monitoring Vagrant
 
 This is instructions for how to setup a Vagrant environment with 4 VM's, i.e. a 3-node Gluster trusted storage pool (with Tendrl agents) and another node serving as my Tendrl server.  
 
-Important Note: This is for development or demo purposes, as I’m using a much smaller hardware footprint than what is specified at https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.4-(install-guide).
+Important Note: This is for demo purposes, as I’m using a much smaller hardware footprint than what is specified at https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.4-(install-guide).
 
 My Test / Demo setup:
 
@@ -82,3 +82,5 @@ E.g.
 14. You’re now ready to deploy Tendrl using tendrl-ansible.  
    Go to https://github.com/Tendrl/documentation/wiki/Tendrl-Releases to find the latest Tendrl release installation instructions, e.g. /usr/share/doc/tendrl-ansible-1.5.4/README.md.
 
+# About the Author
+This project was created by Ju-Lien Lim as an example for how to setup a demo environment for Tendrl to monitor Glusterfs.
