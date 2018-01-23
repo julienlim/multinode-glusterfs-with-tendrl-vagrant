@@ -29,18 +29,18 @@ Setting up the Vagrant Boxes:
 5. Modify bootstrap.sh for anything you want installed or configured on each of the nodes including adding the NTP server.
 
 6. Create the vagrant boxes:
-          vagrant up
+	> vagrant up
 
 7. If “vagrant up” ran successfully, you would now see node0..node3 running.
 
 8. To log into each node, perform the following:
-          vagrant ssh <VM_name>
-          Password for vagrant and root is “vagrant”
+        >  vagrant ssh <VM_name>
+        >  Password for vagrant and root is “vagrant”
           
 9. Ensure passwordless SSH is setup on node1..node3 (in my example I am using root).
 
-	E.g. Run “ssh-keygen” as root on each of the nodes
-	Copy /root/.ssh/id_rsa.pub (from the Tendrl master or source) into the /root/.ssh/authorized_keys file on each the Tendrl nodes.
+	> E.g. Run “ssh-keygen” as root on each of the nodes
+	> Copy /root/.ssh/id_rsa.pub (from the Tendrl master or source) into the /root/.ssh/authorized_keys file on each the Tendrl nodes.
 	Update /etc/sshd_config on each of the nodes accordingly - ensure the following are not commented:
           PermitRootLogin yes
           RSAAuthentication yes
