@@ -67,7 +67,7 @@ Setting up the Vagrant Boxes:
          
 	Use “df -k” to verify the bricks is mounted  <BR>
 
-13. Setup the Gluster Trusted Storage Pool, configure bricks, and create and start volume from node1.  Follow instructions mentioned in https://wiki.centos.org/SpecialInterestGroup/Storage/gluster-Quickstart.
+13. Setup the Gluster Trusted Storage Pool, configure bricks, and create and start volume from node1.  Follow instructions mentioned in [Gluster Quick Start Guide](https://wiki.centos.org/SpecialInterestGroup/Storage/gluster-Quickstart).
 
        E.g. 
         gluster peer probe node2  <BR>
@@ -81,7 +81,7 @@ Setting up the Vagrant Boxes:
 	gstatus -a	        <— verify cluster and volumes are healthy if you installed it as part of bootstrap.sh  <BR>
 
 14. You’re now ready to deploy Tendrl using tendrl-ansible.  
-        Go to https://github.com/Tendrl/documentation/wiki/Tendrl-Releases to find the latest Tendrl release installation instructions, e.g. /usr/share/doc/tendrl-ansible-1.5.4/README.md. <BR>
+        Go to [Tendrl Releases](https://github.com/Tendrl/documentation/wiki/Tendrl-Releases) to find the latest Tendrl release installation instructions, e.g. [tendrl-ansible-1.5.4](/usr/share/doc/tendrl-ansible-1.5.4/README.md). <BR>
 
 
 # About the Author
