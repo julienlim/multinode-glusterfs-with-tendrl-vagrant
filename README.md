@@ -12,9 +12,9 @@ My Test / Demo setup:
 Vagrant/Virtual Box setup:
    
       4 VMs (node0..node3) - 3 node Gluster trusted storage pool, and 1 node Tendrl server on a private network (virtual)
-      Each node is configured with the following: 2 vCPU, 2 GB RAM, Boot Disk 40 GB, Additional virtualHD 1 GB
-		  node0 - Tendrl server (all-in-1), so etcd and graphite are co-located on node0
-      node1..node3 - Gluster nodes
+      Each node is configured with the following: 2 vCPU, 2 GB RAM, Boot Disk 40 GB, additional virtualHD 1 GB
+	 node0 - Tendrl server (all-in-1), so etcd and graphite are co-located on node0
+         node1..node3 - Gluster nodes
 
 Setting up the Vagrant Boxes:
 
