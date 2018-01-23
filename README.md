@@ -69,7 +69,7 @@ Setting up the Vagrant Boxes:
 
 13. Setup the Gluster Trusted Storage Pool, configure bricks, and create and start volume from node1.  Follow instructions mentioned in https://wiki.centos.org/SpecialInterestGroup/Storage/gluster-Quickstart.
 
-        E.g.  <BR>
+        E.g. 
 	gluster peer probe node2  <BR>
 	gluster peer probe node3  <BR>
          
