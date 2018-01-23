@@ -70,14 +70,14 @@ Setting up the Vagrant Boxes:
 
 E.g.
 	gluster peer probe node2
-  gluster peer probe node3
+	gluster peer probe node3
 
-  gluster peer status	<— verify Gluster trusted storage pool established
+	gluster peer status	<— verify Gluster trusted storage pool established
 
-  gluster volume create vol1 replica 3 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1
-  gluster volume start vol1
+	gluster volume create vol1 replica 3 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1
+	gluster volume start vol1
 
-  gstatus -a	<— verify cluster and volumes are healthy if you installed it as part of bootstrap.sh
+	gstatus -a	<— verify cluster and volumes are healthy if you installed it as part of bootstrap.sh
 
 14. You’re now ready to deploy Tendrl using tendrl-ansible.  
    Go to https://github.com/Tendrl/documentation/wiki/Tendrl-Releases to find the latest Tendrl release installation instructions, e.g. /usr/share/doc/tendrl-ansible-1.5.4/README.md.
