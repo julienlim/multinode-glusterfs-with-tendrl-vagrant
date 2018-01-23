@@ -22,7 +22,7 @@ Setting up the Vagrant Boxes:
 
 2. Download and install Vagrant.
 
-3. Create a directory to put the scripts in, e.g. “mydir”.  Download Vagrantfile and bootstrap.sh to “mydir” directory.
+3. Create a directory to put the scripts in, e.g. “mydir”.  Download [Vagrantfile](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/Vagrantfile) and [bootstrap.sh](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/bootstrap.sh) to “mydir” directory.
 
 4. Modify Vagrantfile if you want more than 4 nodes (VMs), e.g. node0 will be the Tendrl master, and node1..node3 are the Gluster trusted pool and Tendrl nodes (agents).  Note: a virtual hard drive will be created/allocated on each of the nodes for 1 GB capacity.
 
