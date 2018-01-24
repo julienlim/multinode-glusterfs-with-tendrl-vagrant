@@ -33,30 +33,30 @@ Setting up the Vagrant Boxes:
 
 5. Modify bootstrap.sh for anything you want installed or configured on each of the nodes including adding the NTP server.
 
-6. Create the vagrant boxes: <BR>
+6. Create the vagrant boxes:
 ``` run on physical host
 $ vagrant up
 ```
 
 7. If “vagrant up” ran successfully, you would now see node0..node3 running.
 
-8. To log into each node, perform the following: <BR>
+8. To log into each node, perform the following:
 ``` run on physical host
-vagrant ssh <VM_name>  <BR>
-Note: Password for vagrant and root is “vagrant”  <BR>
+vagrant ssh <VM_name>
+Note: Password for vagrant and root is “vagrant”
 ```
 
-9. Ensure passwordless SSH is setup on node1..node3 (in my example I am using root). <BR>
+9. Ensure passwordless SSH is setup on node1..node3 (in my example I am using root).
 ``` run on each VM
-E.g. Run “ssh-keygen” as root on each of the nodes <BR>
-Copy /root/.ssh/id_rsa.pub (from the Tendrl master or source) into the /root/.ssh/authorized_keys file on each the Tendrl nodes. <BR>
-Update /etc/ssh/sshd_config on each of the nodes accordingly - ensure the following are not commented: <BR>
-   PermitRootLogin yes  <BR>
-   RSAAuthentication yes  <BR>
-   PubkeyAuthentication yes  <BR>
-   PasswordAuthentication yes  <BR>
-          <BR>
-"service ssh restart" or reboot VMs for changes to take effect.  <BR>
+E.g. Run “ssh-keygen” as root on each of the nodes
+Copy /root/.ssh/id_rsa.pub (from the Tendrl master or source) into the /root/.ssh/authorized_keys file on each the Tendrl nodes.
+Update /etc/ssh/sshd_config on each of the nodes accordingly - ensure the following are not commented:
+   PermitRootLogin yes
+   RSAAuthentication yes
+   PubkeyAuthentication yes
+   PasswordAuthentication yes
+          
+"service ssh restart" or reboot VMs for changes to take effect.
 ```  
 10. As root, update /etc/hosts on each of the nodes so they can talk to each other.
 
@@ -68,36 +68,36 @@ Update /etc/ssh/sshd_config on each of the nodes accordingly - ensure the follow
 ``` run on each VM
 E.g. 
 ### Setup the bricks to be used on each VM
-$ fdisk /dev/sdb  <BR>
-   n 	<— new partition  <BR>
-   p 	<— primary partition type  <BR>
-        <press enter for all the defaults till partition completed  <BR>
-   w	<— writes the partition table  <BR>
-$ mkfs.xfs /dev/sdb1	<— create XFS filesystem  <BR>
-$ parted /dev/sdb print	<— verifies XFS created  <BR>
+$ fdisk /dev/sdb
+   n 	<— new partition
+   p 	<— primary partition type
+        <press enter for all the defaults till partition completed
+   w	<— writes the partition table
+$ mkfs.xfs /dev/sdb1	<— create XFS filesystem
+$ parted /dev/sdb print	<— verifies XFS created
          
 If you left the bootstrap.sh intact, all you need to do is uncomment the “# /dev/sdb1 …” entry in /etc/fstab and do a “mount -a” to mount the brick
          
-Use “df -k” to verify the bricks is mounted  <BR>
+Use “df -k” to verify the bricks is mounted
 ```
 
 ``` run on each VM serving as Gluster node
 E.g. 
 ### Peer probe to connect the nodes into the Gluster trusted storage pool
-$ gluster peer probe node2  <BR>
-$ gluster peer probe node3  <BR>
+$ gluster peer probe node2
+$ gluster peer probe node3
          
-$ gluster peer status	<— verify Gluster trusted storage pool established  <BR>
+$ gluster peer status	<— verify Gluster trusted storage pool established
         
 ### Create Gluster volume and start it	
-$ gluster volume create vol1 replica 3 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1 force  <BR>
-$ gluster volume start vol1  <BR>
+$ gluster volume create vol1 replica 3 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1 force
+$ gluster volume start vol1
          
-$ gstatus -a	        <— verify cluster and volumes are healthy if you installed it as part of bootstrap.sh  <BR>
+$ gstatus -a	        <— verify cluster and volumes are healthy if you installed it as part of bootstrap.sh
 ```
 
 14. You’re now ready to deploy Tendrl using tendrl-ansible.  
-        Go to [Tendrl Releases](https://github.com/Tendrl/documentation/wiki/Tendrl-Releases) to find the latest Tendrl release installation instructions, e.g. [tendrl-ansible-1.5.4](/usr/share/doc/tendrl-ansible-1.5.4/README.md). <BR>
+        Go to [Tendrl Releases](https://github.com/Tendrl/documentation/wiki/Tendrl-Releases) to find the latest Tendrl release installation instructions, e.g. [tendrl-ansible-1.5.4](/usr/share/doc/tendrl-ansible-1.5.4/README.md).
 
 
 # About the Author
