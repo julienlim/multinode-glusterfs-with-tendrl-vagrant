@@ -29,7 +29,9 @@ Setting up the Vagrant Boxes:
 5. Modify bootstrap.sh for anything you want installed or configured on each of the nodes including adding the NTP server.
 
 6. Create the vagrant boxes: <BR>
-        vagrant up
+``` run on physical host
+$ vagrant up
+```
 
 7. If “vagrant up” ran successfully, you would now see node0..node3 running.
 
