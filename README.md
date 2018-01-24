@@ -18,9 +18,9 @@ Vagrant/Virtual Box setup:
 
 Setting up the Vagrant Boxes:
 
-1. Download and install VirtualBox.
+1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-2. Download and install Vagrant.
+2. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
 
 3. Create a directory to put the scripts in, e.g. “mydir”.  Download [Vagrantfile](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/Vagrantfile) and [bootstrap.sh](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/bootstrap.sh) to “mydir” directory.
 
