@@ -99,6 +99,13 @@ $ gstatus -a	        <— verify cluster and volumes are healthy if you installe
 14. You’re now ready to deploy Tendrl using tendrl-ansible.  
         Go to [Tendrl Releases](https://github.com/Tendrl/documentation/wiki/Tendrl-Releases) to find the latest Tendrl release installation instructions, e.g. [tendrl-ansible-1.5.4](/usr/share/doc/tendrl-ansible-1.5.4/README.md).
 
+15. When you're all done, tell Vagrant to destroy the VMs.
+
+```run on physical host
+### Cleanup
+$ vagrant destroy -f
+```
+
 
 # About the Author
 This project was created by Ju-Lien Lim as an example for how to setup a demo environment for Tendrl to monitor Glusterfs.
