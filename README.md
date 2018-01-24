@@ -53,13 +53,16 @@ Update /etc/ssh/sshd_config on each of the nodes accordingly - ensure the follow
           <BR>
 "service ssh restart" or reboot VMs for changes to take effect.  <BR>
 ```  
-10. Update /etc/hosts on each of the nodes so they can talk to each other.
+10. As root, update /etc/hosts on each of the nodes so they can talk to each other.
 
 11. Verify you can ssh (without password) from node0 to node1..node3.  This will create entries in /root/.ssh/known_hosts if you’re successful.
 
-12. You’ll need to partition the disks and get those mounted on each of the 3 nodes (node1..node3), as well as create the XFS filesystem.
+12. Setup the Gluster Trusted Storage Pool, configure bricks, and create and start volume from node1.  Follow instructions mentioned in [Gluster Quick Start Guide](https://wiki.centos.org/SpecialInterestGroup/Storage/gluster-Quickstart), which are the steps in #13 below.
+
+13. As root, you’ll need to partition the disks and get those mounted on each of the 3 nodes (node1..node3), as well as create the XFS filesystem.
 ``` run on each VM
 E.g. 
+### Setup the bricks to be used on each VM
 $ fdisk /dev/sdb  <BR>
    n 	<— new partition  <BR>
    p 	<— primary partition type  <BR>
@@ -73,15 +76,15 @@ If you left the bootstrap.sh intact, all you need to do is uncomment the “# /d
 Use “df -k” to verify the bricks is mounted  <BR>
 ```
 
-13. Setup the Gluster Trusted Storage Pool, configure bricks, and create and start volume from node1.  Follow instructions mentioned in [Gluster Quick Start Guide](https://wiki.centos.org/SpecialInterestGroup/Storage/gluster-Quickstart).
-
 ``` run on each VM serving as Gluster node
 E.g. 
+### Peer probe to connect the nodes into the Gluster trusted storage pool
 $ gluster peer probe node2  <BR>
 $ gluster peer probe node3  <BR>
          
 $ gluster peer status	<— verify Gluster trusted storage pool established  <BR>
-         
+        
+### Create Gluster volume and start it	
 $ gluster volume create vol1 replica 3 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1 force  <BR>
 $ gluster volume start vol1  <BR>
          
