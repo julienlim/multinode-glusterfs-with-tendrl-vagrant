@@ -14,11 +14,11 @@ Physical Host HW: (1) 3.1 GHz Intel Core i7 (4 cores), 16 GB RAM, ~1 TB of disk 
 Vagrant/Virtual Box setup:
 
 ``` VM setup
-      4 VMs (node0..node3) - 3 node Gluster trusted storage pool, and 1 node Tendrl server on a private network (virtual)
+4 VMs (node0..node3) - 3 node Gluster trusted storage pool, and 1 node Tendrl server on a private network (virtual)
       
-      Each node is configured with the following: 2 vCPU, 2 GB RAM, Boot Disk 40 GB, additional virtualHD 1 GB
-	 node0 - Tendrl server (all-in-1), so etcd and graphite are co-located on node0
-         node1..node3 - Gluster nodes
+Each node is configured with the following: 2 vCPU, 2 GB RAM, Boot Disk 40 GB, additional virtualHD 1 GB
+   node0 - Tendrl server (all-in-1), so etcd and graphite are co-located on node0
+   node1..node3 - Gluster nodes
 ```
 
 Setting up the Vagrant Boxes:
