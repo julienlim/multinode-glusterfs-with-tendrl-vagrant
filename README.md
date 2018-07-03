@@ -106,6 +106,8 @@ $ gstatus -a	        <— verify cluster and volumes are healthy if you installe
 $ vagrant destroy -f
 ```
 
+If you don't wish to destroy the VMs but only remove tendrl, follow the [tendrl-cleanup](https://github.com/shtripat/tendrl-cleanup) provided at https://github.com/shtripat/tendrl-cleanup.
+
 
 # About the Author
 This project was created by Ju-Lien Lim as an example for how to setup a demo environment for Tendrl to monitor Glusterfs.
