@@ -1,0 +1,24 @@
+---
+
+- hosts: gluster_servers
+  become: true
+  tasks:
+
+    - name: create new partitions 
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+
+    - name: create filesystems
+      filesystem:
+        fstype: xfs
+        dev: /dev/sdb1
+
+    - name: mount partitions
+      mount:
+        fstype: xfs
+        src: /dev/sdb1
+        path: /bricks/brick1
+        state: mounted
+...

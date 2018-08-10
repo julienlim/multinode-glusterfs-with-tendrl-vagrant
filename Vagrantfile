@@ -29,6 +29,30 @@ Vagrant.configure(2) do |config|
         vb.customize ['storageattach', :id, '--storagectl', "IDE", '--port', "1", '--device', "1", '--type', 'hdd', '--medium', "node#{i}.vdi"]
         vb.name = "node#{i}"
       end
+
+      if i == 3
+        hostconfig.vm.provision :ansible do |ansible|
+          ansible.limit = 'all'
+          ansible.playbook = "network.yml"
+        end
+
+        hostconfig.vm.provision :ansible do |ansible|
+          ansible.limit = 'all'
+          ansible.groups = {
+            'gluster_servers' => ["node[1:3]"],
+          }
+          ansible.playbook = 'filesystem.yml'
+        end
+
+        hostconfig.vm.provision :ansible do |ansible|
+          ansible.limit = 'all'
+          ansible.groups = {
+            'node1' => ["node1"],
+          }
+          ansible.playbook = 'cluster.yml'
+        end
+      end
+
     end
   end
 end

@@ -1,0 +1,47 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+    - name: generate /etc/hosts file for local name resolution
+      template:
+        src: hosts.j2
+        dest: /etc/hosts
+
+    - name: remove generic machine id
+      file:
+        path: /etc/machine-id
+        state: absent
+
+    - name: re-generate machine id
+      shell: systemd-machine-id-setup
+
+    - name: Generate SSH key
+      user:
+        name: root
+        generate_ssh_key: true
+
+    - name: Read public key
+      fetch:
+        src: /root/.ssh/id_rsa.pub
+        dest: .
+
+    - name: Register Authorized keys
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', './{{ item }}/root/.ssh/id_rsa.pub') }}"
+      with_items: "{{groups['all']}}"
+
+    - name: For each host, scan for its ssh public key
+      shell: "ssh-keyscan {{ item }}"
+      with_items: "{{ groups['all'] }}"
+      register: ssh_known_host_results
+
+    - name: Add/update the public key in the known hosts
+      known_hosts:
+        name: "{{ item.item }}"
+        key: "{{ item.stdout }}"
+      with_items: "{{ ssh_known_host_results.results }}"
+...

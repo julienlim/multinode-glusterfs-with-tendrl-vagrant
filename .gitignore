@@ -1,0 +1,11 @@
+.vagrant/
+network.retry
+node0.vdi
+node0/
+node1.vdi
+node1/
+node2.vdi
+node2/
+node3.vdi
+node3/
+
