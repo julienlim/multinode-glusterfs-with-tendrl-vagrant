@@ -29,25 +29,31 @@ Setting up the Vagrant Boxes:
 
 3. Download and install [Ansible](https://github.com/ansible/ansible).
 
-4. Create a directory to put the scripts in, e.g. “mydir”.  Download [Vagrantfile](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/Vagrantfile) and [bootstrap.sh](https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant/blob/master/bootstrap.sh) to “mydir” directory.
+4. Clone this repo.
 
 5. Modify Vagrantfile if you want more than 4 nodes (VMs), e.g. node0 will be the Tendrl master, and node1..node3 are the Gluster trusted pool and Tendrl nodes (agents).  Note: a virtual hard drive will be created/allocated on each of the nodes for 1 GB capacity.
 
 6. Modify bootstrap.sh for anything you want installed or configured on each of the nodes including adding the NTP server.
 
 7. Create the vagrant boxes:
-``` run on physical host
+```bash
 $ vagrant up
 ```
 
 8. If “vagrant up” ran successfully, you would now see node0..node3 running. Ansible should have also taken over and handled the rest of the setup procedure.
 
-9. You’re now ready to deploy Tendrl using tendrl-ansible.  
-        Go to [Tendrl Releases](https://github.com/Tendrl/documentation/wiki/Tendrl-Releases) to find the latest Tendrl release installation instructions, e.g. [tendrl-ansible-1.5.4](/usr/share/doc/tendrl-ansible-1.5.4/README.md).
+9. You’re now ready to deploy Tendrl using tendrl-ansible.
+
+```bash
+$ vagrant ssh node0
+$ sudo -i
+$ cd /usr/share/doc/tendrl-ansible-VERSION
+```
+Follow the directions found in the README.
 
 10. When you're all done, tell Vagrant to destroy the VMs.
 
-```run on physical host
+```bash
 ### Cleanup
 $ vagrant destroy -f
 ```
