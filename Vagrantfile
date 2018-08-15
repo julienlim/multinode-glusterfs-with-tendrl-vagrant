@@ -18,7 +18,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "bootstrap.sh"
 
   # Provision 4 VMs (node0..node3)
-  (0..3).each do |i|
+  node_count = 3
+  (0..node_count).each do |i|
     config.vm.define "node#{i}" do |hostconfig|
       hostconfig.vm.hostname = "node#{i}"
       hostconfig.vm.network "private_network", type: "dhcp"
@@ -30,7 +31,7 @@ Vagrant.configure(2) do |config|
         vb.name = "node#{i}"
       end
 
-      if i == 3
+      if i == node_count
         hostconfig.vm.provision :ansible do |ansible|
           ansible.limit = 'all'
           ansible.playbook = "network.yml"
@@ -39,15 +40,25 @@ Vagrant.configure(2) do |config|
         hostconfig.vm.provision :ansible do |ansible|
           ansible.limit = 'all'
           ansible.groups = {
-            'gluster_servers' => ["node[1:3]"],
+            'gluster_servers' => ["node[1:#{node_count}]"],
           }
           ansible.playbook = 'filesystem.yml'
         end
+
+        volume_string = "gluster volume create vol1 "
+        for j in 1..node_count do
+          volume_string << "node#{j}:/bricks/brick1 "
+        end
+        volume_string << "force"
 
         hostconfig.vm.provision :ansible do |ansible|
           ansible.limit = 'all'
           ansible.groups = {
             'node1' => ["node1"],
+            'other_storage_nodes' => ["node[2:#{node_count}]"]
+          }
+          ansible.extra_vars = {
+            "volume_string": volume_string
           }
           ansible.playbook = 'cluster.yml'
         end
@@ -56,4 +67,3 @@ Vagrant.configure(2) do |config|
     end
   end
 end
-

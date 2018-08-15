@@ -4,14 +4,12 @@
   become: true
   tasks: 
 
-    - name: peer probe node2
-      shell: gluster peer probe node2
-
-    - name: peer probe node3
-      shell: gluster peer probe node3
+    - name: peer probe nodes
+      shell: gluster peer probe {{ item }}
+      with_items: "{{ groups['other_storage_nodes'] }}"
 
     - name: create volume
-      shell: gluster volume create vol1 node1:/bricks/brick1 node2:/bricks/brick1 node3:/bricks/brick1 force
+      shell: "{{ volume_string }}"
 
     - name: start volume
       shell: gluster volume start vol1
