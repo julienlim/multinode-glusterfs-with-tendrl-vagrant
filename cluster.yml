@@ -1,0 +1,17 @@
+---
+
+- hosts: node1
+  become: true
+  tasks: 
+
+    - name: peer probe nodes
+      shell: gluster peer probe {{ item }}
+      with_items: "{{ groups['other_storage_nodes'] }}"
+
+    - name: create volume
+      shell: "{{ volume_string }}"
+
+    - name: start volume
+      shell: gluster volume start vol1
+
+...
