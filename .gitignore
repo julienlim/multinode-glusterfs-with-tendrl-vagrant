@@ -2,3 +2,4 @@
 *.retry
 *.vdi
 node*/
+conf.yml

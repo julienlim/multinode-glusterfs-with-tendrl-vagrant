@@ -5,7 +5,7 @@ sudo yum install git -y
 sudo yum install wget -y
 sudo yum install python-dns -y
 sudo yum install ntpdate -y
-sudo ntpdate <your_NTP_server>
+sudo ntpdate $1
 
 ### install ansible
 sudo yum install epel-release -y
