@@ -31,9 +31,9 @@ Setting up the Vagrant Boxes:
 
 4. Clone this repo.
 
-5. Modify Vagrantfile if you want more than 4 nodes (VMs), e.g. node0 will be the Tendrl master, and node1..node3 are the Gluster trusted pool and Tendrl nodes (agents).  Note: a virtual hard drive will be created/allocated on each of the nodes for 1 GB capacity.
+5. Create a file "conf.yml" based off of "conf.yml.sample" with your customization settings such as your NTP server or if you want more than 4 nodes (VMs), e.g. node0 will be the Tendrl master, and node1..node3 are the Gluster trusted pool and Tendrl nodes (agents).  Note: a virtual hard drive will be created/allocated on each of the nodes for 1 GB capacity.
 
-6. Modify bootstrap.sh for anything you want installed or configured on each of the nodes including adding the NTP server.
+6. Modify bootstrap.sh for anything you want installed or configured on each of the nodes. Alternatively, you can use a different bootstrap file so long as you specify the filename in your "conf.yml" file.
 
 7. Create the vagrant boxes:
 ```bash

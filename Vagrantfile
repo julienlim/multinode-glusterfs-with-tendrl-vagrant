@@ -4,6 +4,13 @@
 # Source: https://github.com/julienlim/multinode-glusterfs-with-tendrl-vagrant
 #
 
+require 'yaml'
+
+conf = YAML.load_file 'conf.yml'
+bootstrap = conf['bootstrap']
+ntp = conf['ntp_server']
+storage_node_count = conf['storage_node_count']
+
 Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
   config.ssh.forward_x11 = true
@@ -15,11 +22,10 @@ Vagrant.configure(2) do |config|
     vb.memory = 2048
   end
 
-  config.vm.provision "shell", path: "bootstrap.sh"
+  config.vm.provision :shell, :path => bootstrap, :args => [ntp]
 
   # Provision 4 VMs (node0..node3)
-  node_count = 3
-  (0..node_count).each do |i|
+  (0..storage_node_count).each do |i|
     config.vm.define "node#{i}" do |hostconfig|
       hostconfig.vm.hostname = "node#{i}"
       hostconfig.vm.network "private_network", type: "dhcp"
@@ -31,7 +37,7 @@ Vagrant.configure(2) do |config|
         vb.name = "node#{i}"
       end
 
-      if i == node_count
+      if i == storage_node_count
         hostconfig.vm.provision :ansible do |ansible|
           ansible.limit = 'all'
           ansible.playbook = "network.yml"
@@ -40,13 +46,13 @@ Vagrant.configure(2) do |config|
         hostconfig.vm.provision :ansible do |ansible|
           ansible.limit = 'all'
           ansible.groups = {
-            'gluster_servers' => ["node[1:#{node_count}]"],
+            'gluster_servers' => ["node[1:#{storage_node_count}]"],
           }
           ansible.playbook = 'filesystem.yml'
         end
 
         volume_string = "gluster volume create vol1 "
-        for j in 1..node_count do
+        for j in 1..storage_node_count do
           volume_string << "node#{j}:/bricks/brick1 "
         end
         volume_string << "force"
@@ -55,7 +61,7 @@ Vagrant.configure(2) do |config|
           ansible.limit = 'all'
           ansible.groups = {
             'node1' => ["node1"],
-            'other_storage_nodes' => ["node[2:#{node_count}]"]
+            'other_storage_nodes' => ["node[2:#{storage_node_count}]"]
           }
           ansible.extra_vars = {
             "volume_string": volume_string

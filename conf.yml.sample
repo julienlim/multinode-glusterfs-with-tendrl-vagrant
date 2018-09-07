@@ -1,0 +1,3 @@
+bootstrap: bootstrap.sh
+ntp_server: 
+storage_node_count: 3
