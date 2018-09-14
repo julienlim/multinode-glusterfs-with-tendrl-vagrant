@@ -19,10 +19,9 @@ Vagrant/Virtual Box Setup:
    * node0 - Tendrl server (all-in-1), so etcd and graphite are co-located on node0
    * node1..node3 - Gluster nodes
 
-
 Bootstrap Options:
-* bootstrap_upstream creates CentOS VMs and installs upstream (Gluster and Tendrl)
-* bootstrap_downstream creates RHEL7 VMs and installs downstream (RHGS and WA)
+* bootstrap_upstream.sh - creates CentOS VMs and installs upstream (Gluster and Tendrl)
+* bootstrap_downstream.sh - creates RHEL7 VMs and installs downstream (RHGS and WA)
 
 Use this README to quickly create and set up a 4-Node setup. The 4 nodes consist of one server node and 3 storage nodes that each include 1 brick. The only tools you should need are the three installs in Step 1 and the repo contents. Note that a downstream setup does require a Red Hat Subscription.
 
