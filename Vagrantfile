@@ -7,12 +7,31 @@
 require 'yaml'
 
 conf = YAML.load_file 'conf.yml'
-bootstrap = conf['bootstrap']
 ntp = conf['ntp_server']
 storage_node_count = conf['storage_node_count']
+bootstrap = conf['bootstrap']
+
+# custom options based off bootstrap
+# if you wrote a custom bootstrap script you will need to include it here
+if bootstrap == 'bootstrap_upstream.sh'
+  vm_box = 'centos/7'
+elsif bootstrap == 'bootstrap_downstream.sh'
+  vm_box = 'generic/rhel7'
+  username = conf['rhel_username']
+  password = conf['rhel_password']
+  if !username.instance_of? String or !password.instance_of? String
+    puts 'RHEL username and/or password configured incorrectly.'
+    exit 1
+  end
+else
+  puts 'No handler for this bootstrap. '\
+       'Either the filename was improperly configured or a handler has yet to be written. '\
+       'One can be added by modifying the Vagrantfile.'
+  exit 1
+end
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = vm_box
   config.ssh.forward_x11 = true
   config.ssh.insert_key = false
 
@@ -22,7 +41,14 @@ Vagrant.configure(2) do |config|
     vb.memory = 2048
   end
 
-  config.vm.provision :shell, :path => bootstrap, :args => [ntp]
+  # different customization required here based off OS
+  if vm_box == 'centos/7'
+    config.vm.provision :shell, :path => bootstrap, :args => [ntp]
+  end
+
+  if vm_box == 'generic/rhel7'
+    config.vm.provision :shell, :path => bootstrap, :args => [ntp, username, password]
+  end
 
   # Provision 4 VMs (node0..node3)
   (0..storage_node_count).each do |i|
@@ -33,7 +59,16 @@ Vagrant.configure(2) do |config|
         unless File.exist?("node#{i}.vdi")
           vb.customize ['createhd', '--filename', "node#{i}", '--size', 1 * 1024]
         end
-        vb.customize ['storageattach', :id, '--storagectl', "IDE", '--port', "1", '--device', "1", '--type', 'hdd', '--medium', "node#{i}.vdi"]
+
+        # different customization required here based off OS
+        if vm_box == 'centos/7'
+          vb.customize ['storageattach', :id, '--storagectl', "IDE", '--port', "1", '--device', "1", '--type', 'hdd', '--medium', "node#{i}.vdi"]
+        end
+
+        if vm_box == 'generic/rhel7'
+          vb.customize ['storageattach', :id, '--storagectl', "IDE Controller", '--port', "1", '--device', "1", '--type', 'hdd', '--medium', "node#{i}.vdi"]
+        end
+
         vb.name = "node#{i}"
       end
 
