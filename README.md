@@ -23,6 +23,11 @@ Bootstrap Options:
 * bootstrap_upstream.sh - creates CentOS VMs and installs upstream (Gluster and Tendrl)
 * bootstrap_downstream.sh - creates RHEL7 VMs and installs downstream (RHGS and WA)
 
+Ensure both these bootstrap_upstream.sh and bootstrap_downstream.sh files have executable permissions.
+```
+chmod 755 bootstrap_*.sh
+```
+
 Use this README to quickly create and set up a 4-Node setup. The 4 nodes consist of one server node and 3 storage nodes that each include 1 brick. The only tools you should need are the three installs in Step 1 and the repo contents. Note that a downstream setup does require a Red Hat Subscription.
 
 ## Initial Setup
