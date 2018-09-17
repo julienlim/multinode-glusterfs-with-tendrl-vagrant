@@ -1,3 +1,15 @@
-bootstrap: bootstrap.sh
-ntp_server: 
+# conf.yml.sample
+# Configurations used by Vagrant to setup the multinode Vagrant environment
+#
+# bootstrap_upstream.sh - creates CentOS VMs and installs upstream (Gluster and Tendrl)
+# bootstrap_downstream.sh - creates RHEL7 VMs and installs downstream (RHGS and RHGS WA)
+#
+# storage_node_count - the number of VMs created for Gluster (gluster peers) 
+#    note: an additional node will be created for monitoring
+
+bootstrap: bootstrap_downstream.sh
+
+ntp_server: ntpserver.domain.com
 storage_node_count: 3
+rhel_username: johndoe
+rhel_password: johndoe_password

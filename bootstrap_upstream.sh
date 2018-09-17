@@ -1,6 +1,7 @@
 #!/bin/bash -ux
 
 ### install pre-requisites
+sudo yum install nano -y
 sudo yum install git -y
 sudo yum install wget -y
 sudo yum install python-dns -y
