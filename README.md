@@ -47,7 +47,7 @@ At this point should be able to passwordless SSH between all nodes, and your glu
 ### Pre-Install Configuration of WA
 Run `vagrant ssh node0` then `$ sudo -i` to go into the root user of node0, then run `$ cd /usr/share/doc/tendrl-ansible-VERSION` such that VERSION is your version of tendrl-ansible (Current version is 1.6.3).
 
-You will see the /usr/share/doc/tendrl-ansible-VERSION/inventory file created for you -- see Inventory Example at the bottom of this README (IP address may vary, but the IP addresses should be the inet ip for node0). Additional information on the inventory file can be found in the [tendrl-ansible](https://github.com/Tendrl/tendrl-ansible) documentation.
+You will see the `/usr/share/doc/tendrl-ansible-VERSION/inventory` file created for you -- see Inventory Example at the bottom of this README (IP address may vary, but the IP addresses should be the inet ip for node0). Additional information on the inventory file can be found in the [tendrl-ansible](https://github.com/Tendrl/tendrl-ansible) documentation.
 
 ### Install WA
 Run `$ ansible-playbook -i inventory_file site.yml`. If you run into issues try running `$ ansible -i inventory_file -m ping all` and ensure all nodes are able to communicate with one another.
@@ -57,7 +57,7 @@ You should now be able to access the Tendrl dashboard from your machine via a br
 By default, the username for WA is admin, and the password is adminuser.
 
 ## About the Author
-This project was created by Ju-Lien Lim as an example for how to setup a demo environment for Tendrl to monitor Glusterfs.
+This project was created by [Ju-Lien Lim](https://github.com/julienlim/) as an example for how to setup a demo environment for Tendrl to monitor Glusterfs.
 
 Additional ansible automation and bootstrap options was added by [Nathan Weinberg](https://github.com/nathan-weinberg) partially using assets from [tendrl-vagrant](https://github.com/Tendrl/tendrl-vagrant).
 
