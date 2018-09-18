@@ -47,7 +47,7 @@ At this point should be able to passwordless SSH between all nodes, and your glu
 ### Pre-Install Configuration of WA
 Run `vagrant ssh node0` then `$ sudo -i` to go into the root user of node0, then run `$ cd /usr/share/doc/tendrl-ansible-VERSION` such that VERSION is your version of tendrl-ansible (Current version is 1.6.3).
 
-Then create a new file "inventory_file" by copying the contents from the Inventory Example at the bottom of this README (IP address may vary, but should be the inet ip for node0). Additional information on the inventory_file can be found in the [tendrl-ansible](https://github.com/Tendrl/tendrl-ansible) documentation.
+You will see the /usr/share/doc/tendrl-ansible-VERSION/inventory file created for you -- see Inventory Example at the bottom of this README (IP address may vary, but the IP addresses should be the inet ip for node0). Additional information on the inventory file can be found in the [tendrl-ansible](https://github.com/Tendrl/tendrl-ansible) documentation.
 
 ### Install WA
 Run `$ ansible-playbook -i inventory_file site.yml`. If you run into issues try running `$ ansible -i inventory_file -m ping all` and ensure all nodes are able to communicate with one another.
